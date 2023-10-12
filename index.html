@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input,
+        button {
+            margin: 10px 0;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+    <title>Calculadora de Pirâmide Hexagonal</title>
+</head>
+
+<body>
+    <div class="calculator">
+        <h2>Calculadora de Pirâmide Hexagonal</h2>
+        <label for="base">Comprimento do lado da base:</label>
+        <input type="number" id="base" placeholder="Comprimento do lado da base">
+        <label for="altura">Altura da pirâmide:</label>
+        <input type="number" id="altura" placeholder="Altura da pirâmide">
+        <button onclick="calcular()">Calcular</button>
+        <h3>Resultados:</h3>
+        <p>Área da base: <span id="areaBase"></span></p>
+        <p>Área lateral: <span id="areaLateral"></span></p>
+        <p>Área da superfície: <span id="areaSuperficie"></span></p>
+        <p>Volume: <span id="volume"></span></p>
+    </div>
+
+    <script>
+        function calcular() {
+            const ladoBase = parseFloat(document.getElementById('base').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            
+            // Cálculo da apótema
+            const apotema = (ladoBase / 2) * Math.sqrt(3);
+            
+            // Cálculo da altura do triângulo isósceles (usando teorema de Pitágoras)
+            const alturaTriangulo = Math.sqrt(Math.pow(altura, 2) + Math.pow(apotema, 2));
+            
+            // Cálculo da área lateral de um triângulo isósceles
+            const areaTriangulo = (ladoBase * alturaTriangulo) / 2;
+            
+            // Cálculo da área lateral da pirâmide
+            const numeroArestasLaterais = 6; // Para uma pirâmide hexagonal, o número de arestas laterais é 6
+            const areaLateral = numeroArestasLaterais * areaTriangulo;
+            
+            // Cálculo da área da base
+            const areaBase = (3 * Math.sqrt(3) / 2) * Math.pow(ladoBase, 2);
+            
+            // Cálculo da área da superfície e do volume
+            const areaSuperficie = areaBase + areaLateral;
+            const volume = (areaBase * altura) / 3;
+            
+            // Exibindo os resultados
+            document.getElementById('areaBase').textContent = areaBase.toFixed(2);
+            document.getElementById('areaLateral').textContent = areaLateral.toFixed(2);
+            document.getElementById('areaSuperficie').textContent = areaSuperficie.toFixed(2);
+            document.getElementById('volume').textContent = volume.toFixed(2);
+            
+        }
+    </script>
+</body>
+
+</html>
